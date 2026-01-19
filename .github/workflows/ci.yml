@@ -1,0 +1,33 @@
+name: CI
+
+on:
+#Implémentez une pipeline CI/CD avec GitHub Actions qui, pour chaque PR et merge sur la branche principale
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+# Checkout le repo git (action actions/checkout , branche principale master
+# Installe Node.js (version dans fichier .nvmrc , action actions/setup-node
+# Installe les dépendances ( npm ci )
+# Exécute les tests unitaires ( npm test )
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: master
+      - uses: actions/checkout@v6
+        with:
+          node-version-file: .nvmrc
+      - name: Install Node.js dependencies
+        run: npm ci
+      - name: run tests
+        run: npm test
+      - name: run lint
+        run: npm run lint
+          
+
