@@ -51,7 +51,7 @@ jobs:
 
             **Statut:** ${{ job.status }}
       - name: Run Allure Action
-        uses: allure-framework/allure-report@v0
+        uses: allure-framework/allure-action@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           
