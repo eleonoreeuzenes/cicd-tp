@@ -79,3 +79,31 @@ npm run lint
 2. Create a feature branch.
 3. Run tests and linting.
 4. Submit a pull request.
+
+## API Documentation
+
+### GET /hello/:name?
+
+Returns a greeting message. The `name` parameter is optional.
+
+**Parameters:**
+- `name` (optional): The name to include in the greeting.
+
+**Examples:**
+- `GET /hello` → "Hello world!"
+- `GET /hello/Alice` → "Hello world! From Alice"
+
+### POST /hello
+
+Returns a greeting message with the name provided in the `x-name` header.
+
+**Headers:**
+- `x-name`: The name to include in the greeting.
+
+**Example:**
+- `POST /hello` with `x-name: Alice` → "Hello world! From Alice"
+
+# Allure
+run `npm test` to generate results
+then `npx allure generate -o allure-report`
+and `npx allure open` to open report

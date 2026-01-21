@@ -1,0 +1,62 @@
+name: CI
+
+on:
+#Implémentez une pipeline CI/CD avec GitHub Actions qui, pour chaque PR et merge sur la branche principale
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+# Checkout le repo git (action actions/checkout , branche principale master
+# Installe Node.js (version dans fichier .nvmrc , action actions/setup-node
+# Installe les dépendances ( npm ci )
+# Exécute les tests unitaires ( npm test )
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+      - name: Install Node.js dependencies
+        run: npm ci
+      - name: run lint
+        run: npm run lint
+      - name: run tests
+        id: tests
+        run: |
+          set +e
+          OUTPUT=$(npm test 2>&1)
+          EXIT_CODE=$?
+          echo "output<<EOF" >> $GITHUB_OUTPUT
+          echo "$OUTPUT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          exit $EXIT_CODE
+      - name: Generate Allure Report
+        run: npx allure generate
+      - name: Create or update PR comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: test-results
+          message: |
+            # 🧪 Résultats des tests
+            **Commit:** ${{ github.sha }}
+
+            ```
+            ${{ steps.tests.outputs.output }}
+            ```
+
+            **Statut:** ${{ job.status }}
+      - name: Run Allure Action
+        uses: allure-framework/allure-action@v0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          
+
+
+  
+          
+
