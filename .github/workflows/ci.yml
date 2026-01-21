@@ -28,7 +28,7 @@ jobs:
       - name: run tests
         run: npm test
       - name: Generate Allure Report
-        run: npx allure generate -o allure-report
+        run: npx allure generate
       - name: run lint
         run: npm run lint
   
