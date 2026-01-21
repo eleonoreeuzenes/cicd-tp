@@ -28,7 +28,7 @@ jobs:
       - name: run tests
         run: |
           set +e
-          OUTPUT=$(npm test --silent)
+          OUTPUT=$(npm test 2>&1)
           EXIT_CODE=$?
           echo "output<<EOF" >> $GITHUB_OUTPUT
           echo "$OUTPUT" >> $GITHUB_OUTPUT
