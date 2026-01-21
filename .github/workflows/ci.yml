@@ -24,11 +24,12 @@ jobs:
         with:
           node-version-file: .nvmrc
       - name: Install Node.js dependencies
-        run: npm install
         run: npm ci
       - name: run tests
         run: npm test
+      - name: Debug jest config
         run: cat jest.config.js
+      - name: List files
         run: ls -la
       - name: Generate Allure Report
         run: npx allure generate
