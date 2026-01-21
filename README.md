@@ -102,3 +102,8 @@ Returns a greeting message with the name provided in the `x-name` header.
 
 **Example:**
 - `POST /hello` with `x-name: Alice` → "Hello world! From Alice"
+
+# Allure
+run `npm test` to generate results
+then `npx allure generate allure-results --clean`
+and `npx allure open` to open report
