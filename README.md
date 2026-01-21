@@ -105,5 +105,5 @@ Returns a greeting message with the name provided in the `x-name` header.
 
 # Allure
 run `npm test` to generate results
-then `npx allure generate allure-results --clean`
+then `npx allure generate -o allure-report`
 and `npx allure open` to open report
