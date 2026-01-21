@@ -26,9 +26,30 @@ jobs:
       - name: run lint
         run: npm run lint
       - name: run tests
-        run: npm test
+        run: |
+          set +e
+          OUTPUT=$(npm test --silent)
+          EXIT_CODE=$?
+          echo "output<<EOF" >> $GITHUB_OUTPUT
+          echo "$OUTPUT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          exit $EXIT_CODE
       - name: Generate Allure Report
         run: npx allure generate
+      - name: Create or update PR comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: test-results
+          message: |
+            # 🧪 Résultats des tests
+            **Commit:** ${{ github.sha }}
+
+            ```
+            ${{ steps.tests.outputs.output }}
+            ```
+
+            **Statut:** ${{ job.status }}
+
 
   
           
