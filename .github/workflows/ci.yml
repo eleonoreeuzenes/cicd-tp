@@ -26,6 +26,7 @@ jobs:
       - name: run lint
         run: npm run lint
       - name: run tests
+        id: tests
         run: |
           set +e
           OUTPUT=$(npm test 2>&1)
