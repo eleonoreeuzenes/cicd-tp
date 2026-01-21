@@ -27,10 +27,10 @@ jobs:
         run: npm ci
       - name: run tests
         run: npm test
-      - name: Debug jest config
-        run: cat jest.config.js
       - name: List files
         run: ls -la
+      - name: Debug jest config
+        run: cat jest.config.js
       - name: Generate Allure Report
         run: npx allure generate
       - name: run lint
